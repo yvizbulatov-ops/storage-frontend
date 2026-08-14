@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Взять компонент</title>
+  
+  <link rel="stylesheet" href="css/take.css">
+</head>
+<body style="margin: 0 !important; padding: 0 !important;">
+<div class="container">
+  
+  <!-- ЭКРАН ЗАГРУЗКИ -->
+  <div id="loadingScreen">
+    <div class="loading-content">
+      <div class="loader"></div>
+      <div class="loading-text" id="loadingText">
+        Загрузка элементной базы...
+      </div>
+      <div class="loading-sub">Пожалуйста, подождите</div>
+    </div>
+  </div>
+  
+ <!-- ЭКРАН ПОИСКА (ЭКРАН 1) -->
+<div id="searchScreen" class="hidden" style="display: none; flex-direction: column; min-height: 100dvh; box-sizing: border-box;">
+  
+  <div class="header">
+    <span class="user" id="userNameDisplay">👤 Пользователь</span>
+    <span class="logout" id="logoutBtn">Выйти</span>
+  </div>
+  
+  <!-- ВСЕ ПОЛЯ ЗАВЕРНУТЫ СЮДА -->
+  <div class="screen-content" style="flex: 1; ">
+    <h1>📦Забрать</h1>
+    
+    <div class="form-group">
+      <label>🔧 Компонент</label>
+      <input type="text" id="componentInput" placeholder="Начните вводить..." autocomplete="off">
+      <div class="suggestions" id="componentSuggestions"></div>
+    </div>
+    
+    <div id="searchMessage" class="message hidden"></div>
+  </div>
+  
+  <!-- НИЖНИЙ БЛОК (ВСЕГДА ВНИЗУ) -->
+ <div class="screen-footer" style="margin-top: auto; display: flex; flex-direction: column; gap: 15px; padding-bottom: calc(15px + env(safe-area-inset-bottom));">
+  <button class="btn btn-primary" id="searchBtn">🔍 Проверить</button>
+  
+  <div class="version-info" style="text-align: center;">
+    <span id="frontVersion">v1.0.0</span>
+    <span style="margin:0 6px;">•</span>
+    <span id="buildTime"></span>
+  </div>
+</div>
+
+</div>
+  
+  <!-- ЭКРАН РЕЗУЛЬТАТОВ (ЭКРАН 2) -->
+  <div id="resultsScreen" class="hidden" style="display:none;flex-direction:column;height:100dvh;">
+    <div class="header">
+      <span class="user" id="resultsUserName">👤 Пользователь</span>
+      <span class="logout" id="resultsLogoutBtn">Выйти</span>
+    </div>
+    
+    <h2 id="resultTitle">📦 Компонент</h2>
+    <p id="resultQty">Доступно: 0 шт</p>
+    
+    <!-- ===== ПОЛЕ ДЛЯ КОЛИЧЕСТВА НА ЭКРАНЕ РЕЗУЛЬТАТОВ ===== -->
+    <div class="form-group" style="margin-bottom:12px;">
+      <label>✏️ Количество взять:</label>
+      <input type="number" id="resultQtyInput" placeholder="1" min="1" value="1">
+    </div>
+    
+    <div id="resultsContainer">
+      <div id="resultsList"></div>
+    </div>
+    
+    <div id="resultsMessage" class="message hidden"></div>
+    
+  
+    <button class="btn btn-secondary" id="backToSearchBtn">🔙 Назад</button>
+
+  </div>
+
+  <!-- ЭКРАН ПОДТВЕРЖДЕНИЯ -->
+ 
+
+  <div id="confirmScreen" class="hidden" style="display:none;flex-direction:column;flex:1;justify-content:center;align-items:center;text-align:center;padding:40px;">
+  <h2 id="confirmTitle" style="font-size:32px;color:#1e7e34;margin-bottom:12px;">Компонент взят</h2>
+  <p id="confirmMessage" style="font-size:24px;color:#202124;margin-bottom:8px;"></p>
+  <p id="confirmDetail" style="font-size:18px;color:#5f6368;margin-bottom:30px;"></p>
+  <button class="btn btn-primary" id="confirmOkBtn" style="max-width:300px;">🔙 На склад</button>
+</div>
+
+</div>
+
+<script src="js/0_Global.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/take.js"></script>
+
+</body>
+</html>

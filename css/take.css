@@ -1,0 +1,507 @@
+/* ============================================
+   CSS: ВЗЯТЬ КОМПОНЕНТ
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+html, body {
+  background-color: #f0f2f5 !important; 
+ margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+  overflow: hidden; /* Запрещает скролл всей страницы */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.header {
+  padding-top: 0 !important;
+  display: flex;
+  justify-content: space-between; /* Раздвигает имя пользователя влево, а "Выйти" — вправо */
+  align-items: center;           /* Центрирует их по вертикали внутри шапки */
+  width: 100%;
+  flex-shrink: 0;                /* Шапка никогда не сожмется по высоте */
+  
+  /* Отступы: сверху учитываем безопасную зону смартфона, по бокам — по 16px */
+  padding: calc(12px + env(safe-area-inset-top)) 16px 12px 16px; 
+  
+  background-color: #ffffff;     /* Белый фон, чтобы под контентом была видна четкая граница */
+  border-bottom: 1px solid #e0e0e0; /* Легкая линия снизу для красоты */
+}
+
+/* Стили для ссылок/кнопок внутри шапки, чтобы они выглядели аккуратно */
+.header .user {
+  font-weight: 500;
+  color: #202124;
+}
+
+.header .logout {
+  color: #d93025;                /* Красный цвет для кнопки выхода */
+  cursor: pointer;
+  font-weight: 500;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Главный контейнер жестко равен высоте экрана смартфона */
+.container {
+  width: 100%;
+  height: 100dvh; /* Динамическая высота (учитывает появление/скрытие панелей браузера) */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; 
+  box-sizing: border-box;
+  
+  /* ===== ДОПИСАНО ДЛЯ КРАСИВОГО ОТОБРАЖЕНИЯ НА ПК ===== */
+  max-width: 480px;      /* Ограничивает ширину приложения на больших экранах */
+  margin: 0 auto;        /* Центрирует мобильное окошко ровно по центру монитора */
+  background: #ffffff;   /* Белый фон для самого приложения */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08); /* Элегантная тень по бокам на ПК */
+}
+
+/* Настройки для внутренностей экрана, если контента вдруг станет слишком много */
+.screen-content {
+  overflow-y: auto; /* Скролл появится ТОЛЬКО внутри контента, кнопка останется на месте */
+  padding: 10px;
+}
+
+#searchScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
+
+  padding-bottom: calc(16px + env(safe-area-inset-bottom)); /* Гарантия безопасности для кнопки */
+}
+
+
+
+
+#searchBtn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0; /* Жестко запрещает кнопке сжиматься по высоте, если экран станет меньше */
+}
+/* ===== ЭКРАН ЗАГРУЗКИ ===== */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  flex-direction: column;
+  transition: opacity 0.5s ease;
+}
+
+#loadingScreen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+  padding: 40px;
+}
+
+.loading-text {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a73e8;
+  margin-top: 30px;
+}
+
+.loading-sub {
+  font-size: 16px;
+  color: #5f6368;
+  margin-top: 8px;
+}
+
+/* ===== СПИННЕР ===== */
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 5px solid #e8eaed;
+  border-top: 5px solid #1a73e8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== ЗАГОЛОВКИ ===== */
+h1 {
+  color: #1a73e8;
+  margin: 0 0 16px 0;
+  font-size: 22px;
+}
+
+h2 {
+  color: #1a73e8;
+  margin: 0 0 12px 0;
+  font-size: 18px;
+}
+
+/* ===== ШАПКА ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e8eaed;
+}
+
+.header .user {
+  font-weight: 500;
+  color: #202124;
+  font-size: 15px;
+}
+
+.header .logout { 
+  color: #1a73e8; 
+  cursor: pointer; 
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #e8f0fe;
+
+   font-size: 18px !important;  /* Такой же размер */
+  font-weight: 600 !important; /* Такая же жирность */
+}
+
+.header .logout:active {
+  background: #d2e3fc;
+}
+
+/* ===== ФОРМЫ ===== */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label { 
+  display: block; 
+  font-weight: 500; 
+  color: #5f6368; 
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 12px;
+  border: 2px solid #dadce0;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  background: white;
+}
+
+.form-group input:focus {
+  border-color: #1a73e8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+
+
+
+.form-group input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ===== ПОДСКАЗКИ ===== */
+.suggestions {
+  border: 2px solid #dadce0;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  max-height: 40vh;  /* ← 60% от высоты экрана */
+  overflow-y: auto;
+  display: none;
+  background: white;
+  margin-top: -2px;
+}
+
+.suggestions.active {
+  display: block;
+}
+
+.suggestions .item {
+  padding: 14px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f3f4;
+  font-size: 17px;
+}
+
+.suggestions .item:active {
+  background: #e8f0fe;
+}
+
+.suggestions .item:last-child {
+  border-bottom: none;
+}
+
+/* ===== КНОПКИ ===== */
+.btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active { 
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background: #1a73e8;
+  color: white;
+}
+
+.btn-primary:active {
+  background: #1557b0;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: #f1f3f4;
+  color: #3c4043;
+}
+
+.btn-secondary:active {
+  background: #e8eaed;
+}
+
+/* ===== СООБЩЕНИЯ ===== */
+.message {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.message-error {
+  background: #fce8e6;
+  color: #c62828;
+}
+
+.message-success {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.message-info {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+.message-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===== РЕЗУЛЬТАТЫ ===== */
+#resultsScreen {
+  display: none;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+#resultsScreen:not(.hidden) {
+  display: flex;
+}
+
+#resultsContainer {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 8px;
+}
+
+#resultQty {
+  color: #5f6368;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+/* ===== КАРТОЧКА МЕСТА ===== */
+.location-card {
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.location-card .info {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.location-card .info .place {
+  font-weight: 500;
+  color: #202124;
+}
+
+.location-card .info .qty {
+  color: #1a73e8;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.location-card .btn-take {
+  padding: 10px 16px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+}
+
+.location-card .btn-take:active {
+  background: #1557b0;
+  transform: scale(0.98);
+}
+
+.location-card .btn-take:disabled {
+  background: #dadce0;
+  color: #9aa0a6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: #5f6368;
+  font-size: 16px;
+}
+
+/* ===== ВЕРСИЯ ===== */
+.version-info {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+  color: #9aa0a6;
+}
+
+/* ===== МОБИЛЬНЫЙ РЕЖИМ ===== */
+@media (max-width: 480px) {
+  .container {
+    padding: 80px 24px;
+  }
+  
+  h1 {
+    font-size: 48px;
+    margin-bottom: 24px;
+  }
+  
+  h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .header .user {
+    font-size: 32px;
+  }
+  
+  .header .logout {
+    font-size: 28px;
+    padding: 12px 24px;
+  }
+  
+  .form-group label {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  
+  .form-group input {
+    font-size: 25px;
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+  
+  .btn {
+    padding: 24px;
+    font-size: 32px;
+    border-radius: 16px;
+  }
+  
+  .suggestions .item {
+    font-size: 28px;
+    padding: 18px 16px;
+  }
+  
+  .message {
+    font-size: 24px;
+    padding: 16px;
+  }
+  
+  .location-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  
+  .location-card .info {
+    font-size: 28px;
+  }
+  
+  .location-card .info .qty {
+    font-size: 28px;
+  }
+  
+  .location-card .btn-take {
+    font-size: 24px;
+    padding: 16px 20px;
+    border-radius: 12px;
+  }
+  
+  .empty-state {
+    font-size: 24px;
+    padding: 40px 20px;
+  }
+  
+  .version-info {
+    font-size: 18px;
+  }
+}
