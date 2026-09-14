@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация на складе</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .register-container {
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .register-container h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .register-container .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-group input.error-input {
+            border-color: #e74c3c;
+        }
+        
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+        
+        .btn-register:hover:not(:disabled) {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+        
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .btn-back:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #c3e6cb;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 600px) {
+            .register-container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ЭКРАН ЗАГРУЗКИ -->
+    <div id="loadingScreen" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:9999;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px;">
+        <div class="loader"></div>
+        <div class="loading-text" id="loadingText">Загрузка...</div>
+        <div class="loading-sub">Пожалуйста, подождите</div>
+    </div>
+
+    <div class="register-container">
+        <h1>📝 Регистрация</h1>
+        <p class="subtitle">Заполните форму для создания учетной записи</p>
+        
+        <form id="registerForm" onsubmit="return false;">
+            <!-- Фамилия -->
+            <div class="form-group">
+                <label for="userName">Фамилия <span class="required">*</span></label>
+                <input type="text" id="userName" placeholder="Введите фамилию" autofocus required>
+                <div class="error-message" id="nameError">Пожалуйста, введите фамилию</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="department">Отделение <span class="required">*</span></label>
+                <input type="text" id="department" placeholder="Например: 7" required>
+                <div class="error-message" id="departmentError">Укажите отделение</div>
+            </div>
+
+           
+            <div class="form-group">
+                <label for="section">Отдел <span class="required">*</span></label>
+                <input type="text" id="section" placeholder="Например: 76" required>
+                <div class="error-message" id="sectionError">Укажите отдел</div>
+            </div>     
+          
+            <div class="form-group">
+                <label for="email">E-mail <span class="required">*</span></label>
+                <input type="email" id="email" placeholder="example@company.com" required>
+                <div class="error-message" id="emailError">Введите корректный e-mail</div>
+            </div>
+            
+            <!-- Кнопка регистрации -->
+            <button type="button" class="btn-register" id="registerBtn" onclick="register()">Зарегистрироваться</button>
+            
+            <!-- Сообщение об успехе -->
+            <div class="success-message" id="successMessage">
+                ✅ Регистрация успешна!<br>
+                <small>Сейчас вы будете перенаправлены на страницу входа...</small>
+            </div>
+            
+            <!-- Ссылка назад -->
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" class="btn-back">← Вернуться на страницу входа</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="./js/0_global.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/register.js"></script>
+</body>
+</html>
